@@ -3,7 +3,7 @@ package com.example.makanbwank2.module
 
 import com.example.makanbwank2.data.remote.CategoriesDashboardRemoteDataResource
 import com.example.makanbwank2.data.remote.CategoriesDashboardRemoteDataResourceImpl
-import com.example.makanbwank2.data.remote.Service
+import com.example.makanbwank2.data.remote.ServiceBwank
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +21,7 @@ object CategoriesModule {
     @Provides
     // @Provides digunakan untuk menandai sebuah fungsi sebagai provider (fungsi yang bertanggung jawab untuk menyediakan instance dari suatu kelas tertentu)
     fun provideMenuDashboardRemoteDataSources(
-        service: Service
+        service: ServiceBwank
     ):
             CategoriesDashboardRemoteDataResource {
         return CategoriesDashboardRemoteDataResourceImpl(service)
