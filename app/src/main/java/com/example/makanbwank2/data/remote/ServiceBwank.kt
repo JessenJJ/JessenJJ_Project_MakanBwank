@@ -1,5 +1,6 @@
 package com.example.makanbwank2.data.remote
 
+import com.example.makanbwank2.data.response_model.BeefResponseModel
 import com.example.makanbwank2.data.response_model.CategoriesDashboardResponseModel
 import com.example.makanbwank2.data.response_model.FeaturedDashboardResponseModel
 import com.example.makanbwank2.data.response_model.SearchDashboardResponseModel
@@ -18,6 +19,8 @@ interface ServiceBwank {
     @GET("api/json/v1/1/categories.php")
     suspend fun getSearchMenu(): Response<SearchDashboardResponseModel>
 
+    @GET("/api/json/v1/1/search.php?s=Massaman")
+    suspend fun getBeef() : Response<BeefResponseModel>
 //    @GET("api/json/v1/1/search.php")
 //    suspend fun getDetail(@Query("s") query: String)
 }

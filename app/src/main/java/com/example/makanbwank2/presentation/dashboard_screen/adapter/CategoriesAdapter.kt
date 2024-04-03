@@ -10,7 +10,8 @@ import com.example.makanbwank2.databinding.ItemCategoriesDashboardBinding
 
 class CategoriesAdapter(
 
-    private val categoriesData: List<CategoriesDashboard>
+    private val categoriesData: List<CategoriesDashboard>,
+    private val itemClickListener: OnBeefCategoriesClickListener
 ) : RecyclerView.Adapter<CategoriesAdapter.DashboardViewHolder>() {
 
     inner class DashboardViewHolder(
@@ -45,7 +46,21 @@ class CategoriesAdapter(
     override fun getItemCount(): Int = categoriesData.size
 
     override fun onBindViewHolder(holder: DashboardViewHolder, position: Int) {
+        val currentItem = categoriesData[position]
         holder.bind(categoriesData[position])
 
+        holder.bind(currentItem)
+
+        holder.itemView.setOnClickListener{
+            itemClickListener.onItemClick(currentItem)
+        }
+
+
+
+
     }
+    interface OnBeefCategoriesClickListener{
+        fun onItemClick(categories: CategoriesDashboard)
+    }
+
 }

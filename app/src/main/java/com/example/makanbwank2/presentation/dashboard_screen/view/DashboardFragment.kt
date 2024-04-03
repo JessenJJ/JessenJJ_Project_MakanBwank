@@ -3,10 +3,12 @@ package com.example.makanbwank2.presentation.dashboard_screen.view
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import com.example.makanbwank2.R
 import com.example.makanbwank2.base.BaseFragment
 import com.example.makanbwank2.data.response_model.CategoriesDashboard
 import com.example.makanbwank2.data.response_model.FeaturedDashboard
 import com.example.makanbwank2.databinding.FragmentDashboardBinding
+import com.example.makanbwank2.presentation.beef_screen.view.BeefFragment
 import com.example.makanbwank2.presentation.dashboard_screen.adapter.CategoriesAdapter
 import com.example.makanbwank2.presentation.dashboard_screen.adapter.FeaturedAdapter
 import com.example.makanbwank2.presentation.dashboard_screen.view_model.DashboardViewModel
@@ -54,7 +56,15 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
 
     private fun setupCategoriesViewMenu(data: List<CategoriesDashboard>) {
 //        Toast.makeText(requireContext(), data.toString(), Toast.LENGTH_SHORT).show()
-        binding.componentCategories.gvCategories.adapter = CategoriesAdapter(data)
+        val itemClickListener = object : CategoriesAdapter.OnBeefCategoriesClickListener {
+            override fun onItemClick(categories: CategoriesDashboard) {
+                parentFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainer, BeefFragment())
+                    .addToBackStack(null)
+                    .commit()
+            }
+        }
+        binding.componentCategories.gvCategories.adapter = CategoriesAdapter(data,itemClickListener)
 
 //        binding.componentCategories.gvCategories.adapter = CategoriesAdapter
 //        binding.componentCategories.gvCategories.onItemClickListener =
