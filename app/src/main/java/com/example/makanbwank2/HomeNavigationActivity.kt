@@ -29,10 +29,6 @@ class HomeNavigationActivity : AppCompatActivity() {
                     return@OnNavigationItemSelectedListener true
                 }
 
-                R.id.navigationFavorite -> {
-                    replaceFragment(FavoriteFragment())
-                    return@OnNavigationItemSelectedListener true
-                }
 
             }; false
 

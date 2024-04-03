@@ -2,6 +2,7 @@ package com.example.makanbwank2.presentation.search_screen.view
 // SplashScreenActivity.kt
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.makanbwank2.R
@@ -19,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     private val viewModel: SearchViewModel by viewModels()
 
-    private lateinit var SearchAdapter: SearchAdapter
+    private lateinit var searchAdapter: SearchAdapter
 
 
     override fun inflateBinding(
@@ -32,6 +33,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override fun setupView() {
         viewModel.getSearchMenu()
         observeViewModel()
+        setupSearchBar() // New line to initialize search bar
     }
 
     private fun observeViewModel() {
@@ -41,11 +43,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun setupViewMenu(data: List<SearchDashboard>) {
+        searchAdapter = SearchAdapter(data)
 //        Toast.makeText(requireContext(), data.toString(), Toast.LENGTH_SHORT).show()
         binding.componentSearchList.rcSearch.adapter = SearchAdapter(data)
         binding.componentSearchList.rcSearch.layoutManager = LinearLayoutManager(
             binding.root.context, LinearLayoutManager.VERTICAL, false
         )
+
+//        binding.cvSearchContainer.addOntextChangeListener{
+//            val keyword = binding.etSearchInput.text.toString()
+//            viewModel.getHomeMenu(keyword)
+//        }
 
 
 //        binding.componentSearch.gvSearch.adapter = SearchAdapter
@@ -58,11 +66,23 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
 //                ).show()
 //            }
 
-//        binding.editText.addOntextChangeListener{
-//            val keyword = binding.editText.text.toString()
-//            viewModel.getHomeMenu(keyword)
-//        }
 
+
+    }
+    private fun setupSearchBar() {
+        val searchBar = binding.componentSearchBar.cvSearchContainer // Assuming search bar reference
+        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText != null) {
+                    searchAdapter.filterData(newText.trim()) // Filter data on text change
+                }
+                return true
+            }
+        })
     }
 
 }

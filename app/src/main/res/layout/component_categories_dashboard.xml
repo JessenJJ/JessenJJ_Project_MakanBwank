@@ -13,9 +13,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Categories"
-        android:textSize="15sp"
+        android:background="@drawable/darkgreen2"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="10dp"
         android:layout_marginBottom="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,17 +26,17 @@
         />
 
     <androidx.recyclerview.widget.RecyclerView
-        tools:listitem="@layout/item_categories_dashboard"
-        app:spanCount="2"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:id="@+id/gvCategories"
-        android:layout_marginTop="20dp"
         android:layout_width="350dp"
         android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/tvCategories"
         app:layout_constraintTop_toBottomOf="@id/tvCategories"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
+        app:spanCount="2"
+        tools:listitem="@layout/item_categories_dashboard"
 
         />
 

@@ -6,6 +6,7 @@ import com.example.makanbwank2.data.response_model.SearchDashboardResponseModel
 
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ServiceBwank {
     // suspend -> Ketika fungsi suspend dipanggil, ia dapat menjalankan proses asinkron tanpa memblok thread secara langsung
@@ -16,7 +17,6 @@ interface ServiceBwank {
 
     @GET("api/json/v1/1/categories.php")
     suspend fun getSearchMenu(): Response<SearchDashboardResponseModel>
-
 
 //    @GET("api/json/v1/1/search.php")
 //    suspend fun getDetail(@Query("s") query: String)

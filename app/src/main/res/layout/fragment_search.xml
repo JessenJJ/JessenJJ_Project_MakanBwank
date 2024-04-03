@@ -4,66 +4,30 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="@drawable/gradientgreen"
     >
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/mcvMaterialCardView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="12dp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/cvSearchContainer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="12dp"
-
-                >
-
-<!--                <androidx.appcompat.widget.AppCompatImageView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:src="@drawable/baseline_search_24" />-->
-
-                <EditText
-                    android:id="@+id/etSearchInput"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:background="@null"
-                    android:hint="Input your food in mind..."
-                    android:padding="2dp" />
 
 
-            </LinearLayout>
-        </androidx.appcompat.widget.SearchView>
-
-
-    </com.google.android.material.card.MaterialCardView>
-
-
+    <include
+        android:id="@+id/componentSearchBar"
+        layout="@layout/component_bar_search"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        />
 
     <include
         android:id="@+id/componentSearchList"
         layout="@layout/component_list_search"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="@id/mcvMaterialCardView"
-        app:layout_constraintEnd_toEndOf="@+id/mcvMaterialCardView"
-        app:layout_constraintTop_toBottomOf="@id/mcvMaterialCardView"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintStart_toStartOf="@id/componentSearchBar"
+        app:layout_constraintEnd_toEndOf="@+id/componentSearchBar"
+        app:layout_constraintTop_toBottomOf="@id/componentSearchBar"
         />
 
 
