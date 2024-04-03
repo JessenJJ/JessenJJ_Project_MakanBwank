@@ -4,37 +4,34 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.makanbwank2.data.response_model.CategoriesDashboard
-import com.example.makanbwank2.databinding.ItemCategoriesDashboardBinding
+import com.example.makanbwank2.data.response_model.FeaturedDashboard
+import com.example.makanbwank2.databinding.ItemFeaturedDashboardBinding
 
 
-class CategoriesAdapter(
+class FeaturedAdapter(
 
-    private val categoriesData: List<CategoriesDashboard>
-) : RecyclerView.Adapter<CategoriesAdapter.DashboardViewHolder>() {
+    private val featuredData:List<FeaturedDashboard>
+) : RecyclerView.Adapter<FeaturedAdapter.DashboardViewHolder>() {
 
     inner class DashboardViewHolder(
-        val binding: ItemCategoriesDashboardBinding
+        val binding: ItemFeaturedDashboardBinding
 
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(mainModel: CategoriesDashboard) {
+        fun bind(mainModel: FeaturedDashboard) {
             binding.root.context?.let {
                 Glide
                     .with(it)
-                    .load(mainModel.strCategoryThumb)
+                    .load(mainModel.strChineseThumb)
                     .centerCrop()
-                    .into(binding.ivCategories)
+                    .into(binding.ivFeatured)
             }
-            binding.tvCategories.text = mainModel.strCategory
-            binding.tvDescription.text = mainModel.strCategoryDescription
 
         }
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DashboardViewHolder {
         return DashboardViewHolder(
-            ItemCategoriesDashboardBinding.inflate(
+            ItemFeaturedDashboardBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -42,10 +39,10 @@ class CategoriesAdapter(
         )
     }
 
-    override fun getItemCount(): Int = categoriesData.size
+    override fun getItemCount(): Int = featuredData.size
 
     override fun onBindViewHolder(holder: DashboardViewHolder, position: Int) {
-        holder.bind(categoriesData[position])
+        holder.bind(featuredData[position])
 
     }
 }

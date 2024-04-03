@@ -1,0 +1,88 @@
+
+package com.example.makanbwank2.presentation.search_screen.view
+// SplashScreenActivity.kt
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.makanbwank2.R
+import com.example.makanbwank2.base.BaseFragment
+import com.example.makanbwank2.data.response_model.SearchModel
+import com.example.makanbwank2.databinding.FragmentSearchBinding
+import com.example.makanbwank2.presentation.search_screen.adapter.SearchAdapter
+import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
+
+@AndroidEntryPoint
+class SearchFragment : BaseFragment<FragmentSearchBinding>() {
+
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var searchView: androidx.appcompat.widget.SearchView
+    private var mList = ArrayList<SearchModel>()
+    private lateinit var adapter: SearchAdapter
+
+    override fun inflateBinding(
+        inflater: LayoutInflater,
+        container: ViewGroup?
+    ): FragmentSearchBinding {
+        return FragmentSearchBinding.inflate(inflater, container,false)
+    }
+
+    override fun setupView() {
+        recyclerView = binding.componentSearchList.rcSearch
+        searchView = binding.cvSearchContainer
+
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
+        addDataToList()
+        adapter = SearchAdapter(mList)
+        recyclerView.adapter = adapter
+
+        searchView.setOnQueryTextListener(object : androidx.appcompat.widget.SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+
+        })
+
+    }
+
+    private fun filterList(query: String?) {
+
+        if (query != null) {
+            val filteredList = ArrayList<SearchModel>()
+            for (i in mList) {
+                if (i.title.lowercase(Locale.ROOT).contains(query)) {
+                    filteredList.add(i)
+                }
+            }
+
+            if (filteredList.isEmpty()) {
+                Toast.makeText(requireContext(), "Data Empty", Toast.LENGTH_SHORT).show()
+            } else {
+                adapter.setFilteredList(filteredList)
+            }
+        }
+    }
+
+    private fun addDataToList() {
+        mList.add(SearchModel("Java", R.drawable.logobwank))
+        mList.add(SearchModel("Kotlin",R.drawable.logobwank))
+        mList.add(SearchModel("C++", R.drawable.logobwank))
+        mList.add(SearchModel("Python",R.drawable.logobwank))
+        mList.add(SearchModel("HTML",R.drawable.logobwank))
+        mList.add(SearchModel("Swift", R.drawable.logobwank))
+        mList.add(SearchModel("C#",R.drawable.logobwank))
+        mList.add(SearchModel("JavaScript",R.drawable.logobwank))
+    }
+
+
+}

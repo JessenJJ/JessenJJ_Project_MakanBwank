@@ -18,13 +18,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/background_rounded_menu"
-        android:padding="2dp">
+       >
 
         <ImageView
             android:id="@+id/ivCategories"
+            android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/logobwank" />
+        <TextView
+            android:textAlignment="center"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:id="@+id/tvDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beef Beef Beef" />
+
 
     </LinearLayout>
 

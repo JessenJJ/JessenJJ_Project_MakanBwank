@@ -1,24 +1,29 @@
 package com.example.makanbwank2.presentation.dashboard_screen.view
-// SplashScreenActivity.kt
-import android.os.Bundle
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.Toast
 import androidx.fragment.app.viewModels
-
 import com.example.makanbwank2.base.BaseFragment
 import com.example.makanbwank2.data.response_model.CategoriesDashboard
+import com.example.makanbwank2.data.response_model.FeaturedDashboard
 import com.example.makanbwank2.databinding.FragmentDashboardBinding
 import com.example.makanbwank2.presentation.dashboard_screen.adapter.CategoriesAdapter
+import com.example.makanbwank2.presentation.dashboard_screen.adapter.FeaturedAdapter
 import com.example.makanbwank2.presentation.dashboard_screen.view_model.DashboardViewModel
+import com.example.makanbwank2.presentation.dashboard_screen.view_model.FeaturedViewModel
 import dagger.hilt.android.AndroidEntryPoint
+
+// SplashScreenActivity.kt
+
 
 @AndroidEntryPoint
 class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
     private val viewModel: DashboardViewModel by viewModels()
+    private val viewModel2: FeaturedViewModel by viewModels()
+
 
     private lateinit var categoriesAdapter: CategoriesAdapter
+    private lateinit var featuredAdapter: FeaturedAdapter
     override fun inflateBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
@@ -28,19 +33,28 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
 
     override fun setupView() {
         viewModel.getCategoriesMenu()
-        observeViewModel()
+        viewModel2.getFeaturedMenu()
+        observeViewModel1()
+        observeViewModel2()
     }
-    private fun observeViewModel() {
+
+    private fun observeViewModel1() {
         viewModel.categoriesMenu.observe(viewLifecycleOwner) {
-            setupViewMenu(it.data)
+            setupCategoriesViewMenu(it.categories)
+        }
+
+    }
+    private fun observeViewModel2() {
+        viewModel2.featuredMenu.observe(viewLifecycleOwner) {
+            setupFeaturedViewMenu(it.featured)
         }
     }
 
-    private fun setupViewMenu(data: List<CategoriesDashboard>?) {
-        categoriesAdapter = CategoriesAdapter(
-            CategoriesData = data ?: listOf(),
-            context = binding.root.context
-        )
+
+
+    private fun setupCategoriesViewMenu(data: List<CategoriesDashboard>) {
+//        Toast.makeText(requireContext(), data.toString(), Toast.LENGTH_SHORT).show()
+        binding.componentCategories.gvCategories.adapter = CategoriesAdapter(data)
 
 //        binding.componentCategories.gvCategories.adapter = CategoriesAdapter
 //        binding.componentCategories.gvCategories.onItemClickListener =
@@ -57,6 +71,9 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding>() {
 //            viewModel.getHomeMenu(keyword)
 //        }
 
+    }
+    private fun setupFeaturedViewMenu(data2: List<FeaturedDashboard>) {
+        binding.componentFeatured.rvFeaturedRecycle.adapter = FeaturedAdapter(data2)
     }
 
 }

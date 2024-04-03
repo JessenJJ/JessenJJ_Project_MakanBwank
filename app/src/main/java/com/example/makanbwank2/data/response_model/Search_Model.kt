@@ -1,13 +1,13 @@
 package com.example.makanbwank2.data.response_model
 import com.google.gson.annotations.SerializedName
 
-data class CategoriesDashboardResponseModel (
+data class SearchDashboardResponseModel (
     @SerializedName("categories")
-    val categories: List<CategoriesDashboard>
+    val search: List<SearchDashboard>
 )
 
 
-data class CategoriesDashboard (
+data class SearchDashboard (
     @SerializedName("idCategory")
     val idCategory : String?,
     @SerializedName("strCategory")

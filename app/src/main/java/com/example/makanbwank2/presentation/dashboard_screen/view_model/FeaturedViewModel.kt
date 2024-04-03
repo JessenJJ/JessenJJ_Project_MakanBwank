@@ -19,29 +19,30 @@ import javax.inject.Inject
 
 // @Inject: Ini adalah anotasi yang menandai konstruktor kelas HomeViewModel. Hilt akan memastikan bahwa instance dari CurrentWeatherRemote akan disediakan dan disuntikkan ke dalam konstruktor HomeViewModel saat membuat instance ViewModel.
 @HiltViewModel
-class DashboardViewModel @Inject constructor(
-    private val categoriesDashboardRemoteDataResource: CategoriesDashboardRemoteDataResource,
+class FeaturedViewModel @Inject constructor(
+
+    private val featuredDashboardRemoteDataResource: FeaturedDashboardRemoteDataResource
 ) : ViewModel() {
 
-    // setter
-    private val _categoriesMenu = MutableLiveData<CategoriesDashboardResponseModel>()
-    private val _categoriesMenuError = MutableLiveData<String>()
+    // setter for featured
+    private val _featuredMenu = MutableLiveData<FeaturedDashboardResponseModel>()
+    private val _featuredMenuError = MutableLiveData<String>()
 
-    // getter
-    val categoriesMenu: LiveData<CategoriesDashboardResponseModel> get() = _categoriesMenu
-    val categoriesMenuError: LiveData<String> get() = _categoriesMenuError
+    // getter for featured
+    val featuredMenu: LiveData<FeaturedDashboardResponseModel> get() = _featuredMenu
+    val featuredMenuError: LiveData<String> get() = _featuredMenuError
 
-    fun getCategoriesMenu() = viewModelScope.launch(Dispatchers.IO) {
-        categoriesDashboardRemoteDataResource.getCategoriesDashboard().let {
+
+    fun getFeaturedMenu() = viewModelScope.launch(Dispatchers.IO) {
+        featuredDashboardRemoteDataResource.getFeaturedDashboard().let {
             if (it.isSuccessful) {
-                _categoriesMenu.postValue(it.body())
+                _featuredMenu.postValue(it.body())
             } else {
 
-                _categoriesMenuError.postValue(it.message())
+                _featuredMenuError.postValue(it.message())
             }
         }
     }
-
 
 
 }

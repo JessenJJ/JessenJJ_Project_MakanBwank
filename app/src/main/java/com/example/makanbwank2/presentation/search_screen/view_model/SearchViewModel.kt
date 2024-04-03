@@ -1,13 +1,13 @@
-package com.example.makanbwank2.presentation.dashboard_screen.view_model
+package com.example.makanbwank2.presentation.search_screen.view_model
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.makanbwank2.data.remote.CategoriesDashboardRemoteDataResource
 import com.example.makanbwank2.data.remote.FeaturedDashboardRemoteDataResource
-import com.example.makanbwank2.data.response_model.CategoriesDashboardResponseModel
+import com.example.makanbwank2.data.remote.SearchDashboardRemoteDataResource
 import com.example.makanbwank2.data.response_model.FeaturedDashboardResponseModel
+import com.example.makanbwank2.data.response_model.SearchDashboardResponseModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,28 +19,31 @@ import javax.inject.Inject
 
 // @Inject: Ini adalah anotasi yang menandai konstruktor kelas HomeViewModel. Hilt akan memastikan bahwa instance dari CurrentWeatherRemote akan disediakan dan disuntikkan ke dalam konstruktor HomeViewModel saat membuat instance ViewModel.
 @HiltViewModel
-class DashboardViewModel @Inject constructor(
-    private val categoriesDashboardRemoteDataResource: CategoriesDashboardRemoteDataResource,
+class SearchViewModel @Inject constructor(
+    private val searchDashboardRemoteDataResource: SearchDashboardRemoteDataResource,
+
 ) : ViewModel() {
 
     // setter
-    private val _categoriesMenu = MutableLiveData<CategoriesDashboardResponseModel>()
-    private val _categoriesMenuError = MutableLiveData<String>()
+    private val _searchMenu = MutableLiveData<SearchDashboardResponseModel>()
+    private val _searchMenuError = MutableLiveData<String>()
 
     // getter
-    val categoriesMenu: LiveData<CategoriesDashboardResponseModel> get() = _categoriesMenu
-    val categoriesMenuError: LiveData<String> get() = _categoriesMenuError
+    val searchMenu: LiveData<SearchDashboardResponseModel> get() = _searchMenu
+    val searchMenuError: LiveData<String> get() = _searchMenuError
 
-    fun getCategoriesMenu() = viewModelScope.launch(Dispatchers.IO) {
-        categoriesDashboardRemoteDataResource.getCategoriesDashboard().let {
+
+    fun getSearchMenu() = viewModelScope.launch(Dispatchers.IO) {
+        searchDashboardRemoteDataResource.getSearchDashboard().let {
             if (it.isSuccessful) {
-                _categoriesMenu.postValue(it.body())
+                _searchMenu.postValue(it.body())
             } else {
 
-                _categoriesMenuError.postValue(it.message())
+                _searchMenuError.postValue(it.message())
             }
         }
     }
+
 
 
 

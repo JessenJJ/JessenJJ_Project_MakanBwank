@@ -44,9 +44,6 @@ class HomeNavigationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        sharePref = SharePrefHelper(this)
-
-//        confirmationDialogueUtils = ConfirmationDialogueUtils(this)
 
         binding.bottomNavigation.setOnNavigationItemSelectedListener(
             onNavigationItemSelectedListener
@@ -57,25 +54,6 @@ class HomeNavigationActivity : AppCompatActivity() {
         }
 
     }
-
-//    private fun showConfirmation() {
-//        val title = "Are you sure you want to quit?"
-//        val icon = androidx.appcompat.R.drawable.abc_ic_menu_cut_mtrl_alpha
-//
-//        confirmationDialogueUtils.showConfirmationDialogue(
-//            title = title, icon = icon,
-//            onConfirm = {
-//                sharePref.clearDataPref()
-//                finish()
-//            },
-//            onCancel = {
-//
-//            }
-//
-//        )
-//
-//    }
-
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
